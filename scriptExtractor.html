@@ -140,7 +140,7 @@
                 var data = JSON.parse(content);
                 var combinedRecognizedPhrases = data.combinedRecognizedPhrases;
 
-                if (combinedRecognizedPhrases && combinedRecognizedPhrases[0] && combinedRecognizedPhrases[0].display) {
+                if (combinedRecognizedPhrases?.[0]?.display) {
                     downloadLink.classList.remove('inactive');
                     copyButton.classList.remove('inactive');
                     var text = combinedRecognizedPhrases[0].display;
