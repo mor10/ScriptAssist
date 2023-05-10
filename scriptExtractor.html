@@ -88,62 +88,62 @@
 </head>
 <body>
     <div class="container">
-    <header class="header">
-        <h1>ScriptExtractor3000</h1>
-    </header>
-    <nav class="controls">
-        <button id="upload_button" class="btn">Extract script from .json file</button>
-        <button id="copy_btn" class="btn inactive">Copy text</button>
-        <a id="download_link" class="btn inactive">Save RTF</a>
-    </nav>
-    <main class="main-content">
-        
-        <input type="file" id="file_input" style="display: none" />
-    
-        <div id="file_info">
-            <h1 id="file_name"></h1>
+        <header class="header">
+            <h1>ScriptExtractor3000</h1>
+        </header>
+        <nav class="controls">
+            <button id="upload_button" class="btn">Extract script from .json file</button>
+            <button id="copy_btn" class="btn inactive">Copy text</button>
+            <a id="download_link" class="btn inactive">Save RTF</a>
+        </nav>
+        <main class="main-content">
             
-            <div id="text_box"></div>
-        </div>
-    </main>
-</div>
+            <input type="file" id="file_input" style="display: none" />
+        
+            <div id="file_info">
+                <h1 id="file_name"></h1>
+                
+                <div id="text_box"></div>
+            </div>
+        </main>
+    </div>
     
 
     <script>
-        var uploadButton = document.getElementById('upload_button');
-        var fileInput = document.getElementById('file_input');
-        var fileInfo = document.getElementById('file_info');
-        var fileNameElement = document.getElementById('file_name');
-        var downloadLink = document.getElementById('download_link');
-        var textBox = document.getElementById('text_box');
-        var copyButton = document.getElementById('copy_btn');
+        const uploadButton = document.getElementById('upload_button');
+        const fileInput = document.getElementById('file_input');
+        const fileInfo = document.getElementById('file_info');
+        const fileNameElement = document.getElementById('file_name');
+        const downloadLink = document.getElementById('download_link');
+        const textBox = document.getElementById('text_box');
+        const copyButton = document.getElementById('copy_btn');
 
         uploadButton.onclick = function () {
             fileInput.click();
         };
 
         fileInput.onchange = function (e) {
-            var file = e.target.files[0];
+            const file = e.target.files[0];
 
             if (file.type !== 'application/json') {
                 alert('Please upload a .json file.');
                 return;
             }
 
-            var reader = new FileReader();
+            const reader = new FileReader();
             reader.onload = function (e) {
-                var content = e.target.result;
-                var data = JSON.parse(content);
-                var combinedRecognizedPhrases = data.combinedRecognizedPhrases;
+                const content = e.target.result;
+                const data = JSON.parse(content);
+                const combinedRecognizedPhrases = data.combinedRecognizedPhrases;
 
                 if (combinedRecognizedPhrases?.[0]?.display) {
                     downloadLink.classList.remove('inactive');
                     copyButton.classList.remove('inactive');
-                    var text = combinedRecognizedPhrases[0].display;
-                    var rtfContent = "{\\rtf1\\ansi\\deff0 {\\fonttbl {\\f0 Courier;}} \\f0\\fs24 " + text + "}";
+                    const text = combinedRecognizedPhrases[0].display;
+                    const rtfContent = "{\\rtf1\\ansi\\deff0 {\\fonttbl {\\f0 Courier;}} \\f0\\fs24 " + text + "}";
 
-                    var blob = new Blob([rtfContent], { type: 'application/rtf' });
-                    var url = URL.createObjectURL(blob);
+                    const blob = new Blob([rtfContent], { type: 'application/rtf' });
+                    const url = URL.createObjectURL(blob);
 
                     fileNameElement.textContent = 'File: ' + file.name.replace('.json', '.rtf');
                     downloadLink.href = url;
@@ -160,7 +160,7 @@
         };
 
         copyButton.onclick = function() {
-            var textArea = document.createElement('textarea');
+            const textArea = document.createElement('textarea');
             textArea.value = textBox.textContent;
             document.body.appendChild(textArea);
             textArea.select();
